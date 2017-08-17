@@ -4,9 +4,13 @@ var hangman = {
 	wrongLetters : [],
 	currentWord : "",
 	currentGuess : "",
-	wordList : ["CAPITOLS", "LETTERS"],
+	wordList : ["CAPITOLS", "LETTERS", "WORDS", "HI"],
 	handler : function(letter){
-		// input must be a letter not guessed
+		// if you've just won (or lost), reset board
+		if( this.currentWord === this.currentGuess ){
+			this.newWord();
+		}else 
+		// input is a letter not guessed
 		if( "ABCDEFGHIJKLMNOPQRSTUVWXYZ".includes(letter) && !hangman.wrongLetters.includes(letter) ){
 			// determine if guessed letter is correct
 			this.checkLetter( letter );
@@ -27,10 +31,8 @@ var hangman = {
 				}
 			}
 			this.currentGuess = guessUpdate;
-			console.log(this.currentGuess);
-			if( this.currentWord === this.currentGuess ){
-				this.wins++;
-				this.newWord();
+			if( this.currentWord === guessUpdate ){
+				this.winCondition();
 			}
 		}else{ // word does not include given letter
 			this.wrongLetters.push(letter);
@@ -44,14 +46,24 @@ var hangman = {
 			this.guessesRemaining--;
 			document.getElementById("remaining").innerHTML = this.guessesRemaining + " guesses remaining.";
 			if(!this.guessesRemaining){
-				alert("Out of guesses! You won " + this.wins +" times.");
+				console.log("Out of guesses! You won " + this.wins +" times.");
 				this.wins = 0;
-				this.newWord();
+				this.currentGuess = this.currentWord;
+				document.getElementById("wins").innerHTML = "";
 			}
 		}
 	},
+	winCondition : function(){
+		console.log("winner");
+		this.wins++;
+		document.getElementById("wins").innerHTML = "solved: " + this.wins;
+	},
 	newWord : function(){
-		this.currentWord = this.wordList[Math.floor(Math.random()*this.wordList.length)];
+		while( this.currentGuess === this.currentWord ){
+			this.currentWord = this.wordList[Math.floor(Math.random()*this.wordList.length)];
+		}
+		this.currentGuess = "";
+		this.wrongLetters = [];
 		this.guessesRemaining = 12;
 		document.getElementById("remaining").innerHTML = this.guessesRemaining + " guesses.";
 		var wordString = "";
