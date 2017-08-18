@@ -8,7 +8,7 @@ var hangman = {
 	handler : function(letter){
 		// if you've just won (or lost), reset board
 		if( this.currentWord === this.currentGuess ){
-			document.getElementById("gameover").style.opacity = 0;
+			document.getElementById("alerts").style.opacity = 0;
 			this.newWord();
 		}else 
 		// input is a letter not guessed
@@ -49,8 +49,8 @@ var hangman = {
 			this.guessesRemaining--;
 			document.getElementById("remaining").innerHTML = this.guessesRemaining + " guesses remaining.";
 			if(!this.guessesRemaining){
-				document.getElementById("gameover").innerHTML = "<h2>Game Over!</h2>You got " + this.wins + " right.<br>press any key to play again.";
-				document.getElementById("gameover").style.opacity = 1;
+				document.getElementById("alerts").innerHTML = "<h2>Game Over!</h2>You got " + this.wins + " right.<br>press any key to play again.";
+				document.getElementById("alerts").style.opacity = 1;
 				this.wins = 0;
 				document.getElementById("wins").innerHTML = "";
 				this.currentGuess = this.currentWord;
@@ -58,7 +58,8 @@ var hangman = {
 		}
 	},
 	winState : function(){
-		console.log("winner");
+		document.getElementById("alerts").innerHTML = "<h2>You guessed it!</h2>But can you guess the next one?<br>press any key to continue.";
+		document.getElementById("alerts").style.opacity = 1;
 		this.wins++;
 		document.getElementById("wins").innerHTML = "solved: " + this.wins;
 	},

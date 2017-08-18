@@ -13,7 +13,7 @@ h1{
 	color: white;
 	text-shadow: 1px 2px 3px black;
 }
-#wins, #word, #remaining, #guesses, #gameover{
+#wins, #word, #remaining, #guesses, #alerts{
 	max-width: 780px;
 	padding:10px 10px 10px 30px;
 	margin: auto;
@@ -28,9 +28,9 @@ h1{
 	font-size: 20px;
 	text-shadow: 1px 1px 1px black;
 }
-#gameover{
-	height:200px;
-	padding: 50px 30px;
+#alerts{
+	height:170px;
+	padding: 30px 30px;
 	background-color: rgba(255, 255, 255, 0.9);
 	width: 300px;
 	font-size: 20px;
@@ -38,6 +38,7 @@ h1{
 	transition: 0.5s linear opacity;
 	position: relative;
 	left: 10px;
+	margin-bottom: 60px;
 }
 #word{
 	text-align: center;
