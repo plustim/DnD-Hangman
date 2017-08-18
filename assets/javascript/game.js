@@ -4,7 +4,7 @@ var hangman = {
 	wrongLetters : [],
 	currentWord : "",
 	currentGuess : "",
-	wordList : ["CAPITOLS", "LETTERS", "WORDS", "HI"],
+	wordList : ["GREATSWORD", "DRAGON", "GOBLIN", "IMMOVABLE ROD", "BAG OF HOLDING", "PORTABLE HOLE", "MAGIC MISSILE", "FIREBALL", "MAGE HAND", "PRESTIDIGITATION", "WIZARD", "SORCERER", "DRUID", "CLERIC", "WARLOCK", "BARBARIAN", "RANGER", "PALADIN", "BEHOLDER", "OWLBEAR", "GELATINOUS CUBE", "DISPLACER BEAST", "BLINK DOG"],
 	handler : function(letter){
 		// if you've just won (or lost), reset board
 		if( this.currentWord === this.currentGuess ){
@@ -26,6 +26,8 @@ var hangman = {
 					guessUpdate += letter;
 				}else if( this.currentGuess.charAt(i) ){
 					guessUpdate += this.currentGuess.charAt(i);
+				}else if( this.currentWord.charAt(i) === " " ){
+					guessUpdate += " ";
 				}else{
 					guessUpdate += 0;
 				}
@@ -48,8 +50,8 @@ var hangman = {
 			if(!this.guessesRemaining){
 				console.log("Out of guesses! You won " + this.wins +" times.");
 				this.wins = 0;
-				this.currentGuess = this.currentWord;
 				document.getElementById("wins").innerHTML = "";
+				this.currentGuess = this.currentWord;
 			}
 		}
 	},
@@ -68,7 +70,11 @@ var hangman = {
 		document.getElementById("remaining").innerHTML = this.guessesRemaining + " guesses.";
 		var wordString = "";
 		for( var i=0; i<this.currentWord.length; i++ ){
-			wordString += "<div id='letter"+i+"'>&nbsp;</div>";
+			if( this.currentWord.charAt(i) === " " ){
+				wordString += "<div class='space' id='letter"+i+"'></div>";
+			}else{
+				wordString += "<div id='letter"+i+"'>&nbsp;</div>";
+			}
 		}
 		document.getElementById("word").innerHTML = wordString;
 		document.getElementById("guesses").innerHTML = "";
